@@ -10,7 +10,7 @@ namespace _03.GamingStore
             string gameName = Console.ReadLine();
             double totalPrice = 0;
 
-            while(gameName!="Game Time")
+            while (gameName != "Game Time")
             {
                 double price = 0;
                 switch (gameName)
@@ -34,11 +34,14 @@ namespace _03.GamingStore
                         price = 39.99;
                         break;
                     default:
-                        Console.WriteLine("Not Found");
-                        break;
+                        {
+                            Console.WriteLine("Not Found");
+                            gameName = Console.ReadLine();
+                            continue;
+                        }
                 }
 
-                if (balance - price<0)
+                if (balance - price < 0)
                 {
                     Console.WriteLine("Too Expensive");
                 }
