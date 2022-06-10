@@ -247,7 +247,7 @@ namespace _11.ArrayManipulator
                     break;
                 }
             }
-
+            
             Console.WriteLine($"[{string.Join(", ", evenElements)}]");
         }
 
@@ -292,6 +292,7 @@ namespace _11.ArrayManipulator
                 }
             }
 
+            evenElements.Reverse();
             Console.WriteLine($"[{string.Join(", ", evenElements)}]");
         }
 
@@ -314,6 +315,7 @@ namespace _11.ArrayManipulator
                 }
             }
 
+            oddElements.Reverse();
             Console.WriteLine($"[{string.Join(", ", oddElements)}]");
         }
     }
