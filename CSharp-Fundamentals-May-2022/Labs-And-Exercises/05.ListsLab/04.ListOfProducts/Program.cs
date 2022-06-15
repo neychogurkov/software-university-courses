@@ -16,7 +16,7 @@ namespace _04.ListOfProducts
                 products.Add(Console.ReadLine());    
             }
 
-            products = products.OrderBy(n => n).ToList();
+            products.Sort();
 
             for (int i = 0; i < products.Count; i++)
             {
