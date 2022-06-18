@@ -12,7 +12,6 @@ namespace _04.MixedUpLists
             List<int> firstList = Console.ReadLine().Split().Select(int.Parse).ToList();
             List<int> secondList = Console.ReadLine().Split().Select(int.Parse).ToList();
             List<int> mixedList = new List<int>();
-            List<int> range = new List<int>();
             int start = 0;
             int end = 0;
 

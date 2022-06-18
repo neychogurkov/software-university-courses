@@ -9,31 +9,31 @@ namespace _05.DrumSet
         static void Main(string[] args)
         {
             double savings = double.Parse(Console.ReadLine());
-            List<int> initialdrumsQuality = Console.ReadLine().Split().Select(int.Parse).ToList();
-            List<int> drumsQuality = new List<int>(initialdrumsQuality);
+            List<int> initialdrumsQualities = Console.ReadLine().Split().Select(int.Parse).ToList();
+            List<int> drumsQualities = new List<int>(initialdrumsQualities);
             string command = Console.ReadLine();
 
             while (command != "Hit it again, Gabsy!")
             {
                 int hitPower = int.Parse(command);
 
-                for (int i = 0; i < drumsQuality.Count; i++)
+                for (int i = 0; i < drumsQualities.Count; i++)
                 {
-                    if (drumsQuality[i] - hitPower > 0)
+                    if (drumsQualities[i] - hitPower > 0)
                     {
-                        drumsQuality[i] -= hitPower;
+                        drumsQualities[i] -= hitPower;
                     }
                     else
                     {
-                        if (savings - initialdrumsQuality[i] * 3 >= 0)
+                        if (savings - initialdrumsQualities[i] * 3 >= 0)
                         {
-                            drumsQuality[i] = initialdrumsQuality[i];
-                            savings -= initialdrumsQuality[i] * 3;
+                            drumsQualities[i] = initialdrumsQualities[i];
+                            savings -= initialdrumsQualities[i] * 3;
                         }
                         else
                         {
-                            drumsQuality.RemoveAt(i);
-                            initialdrumsQuality.RemoveAt(i);
+                            drumsQualities.RemoveAt(i);
+                            initialdrumsQualities.RemoveAt(i);
                             i--;
                         }
                     }
@@ -42,7 +42,7 @@ namespace _05.DrumSet
                 command = Console.ReadLine();
             }
 
-            Console.WriteLine(string.Join(" ", drumsQuality));
+            Console.WriteLine(string.Join(" ", drumsQualities));
             Console.WriteLine($"Gabsy has {savings:f2}lv.");
         }
     }
