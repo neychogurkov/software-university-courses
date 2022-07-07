@@ -39,7 +39,7 @@ namespace _03.SpeedRacing
 
             foreach (var car in cars)
             {
-                Console.WriteLine($"{car.Model} {car.FuelAmount:f2} {car.TraveledDistance}");
+                Console.WriteLine($"{car.Model} {car.FuelAmount:f2} {car.DistanceTraveled}");
             }
         }
     }
@@ -49,14 +49,14 @@ namespace _03.SpeedRacing
         public string Model { get; set; }
         public double FuelAmount { get; set; }
         public double FuelConsumptionPerKilometer { get; set; }
-        public int TraveledDistance { get; set; }
+        public int DistanceTraveled { get; set; }
 
         public Car(string model, double fuelAmount, double fuelConsumptionPerKilometer)
         {
             Model = model;
             FuelAmount = fuelAmount;
             FuelConsumptionPerKilometer = fuelConsumptionPerKilometer;
-            TraveledDistance = 0;
+            DistanceTraveled = 0;
         }
 
         public void CheckIfFuelIsEnough(int distanceToTravel)
@@ -66,7 +66,7 @@ namespace _03.SpeedRacing
             if (fuelNeeded <= FuelAmount)
             {
                 FuelAmount -= fuelNeeded;
-                TraveledDistance += distanceToTravel;
+                DistanceTraveled += distanceToTravel;
             }
             else
             {
