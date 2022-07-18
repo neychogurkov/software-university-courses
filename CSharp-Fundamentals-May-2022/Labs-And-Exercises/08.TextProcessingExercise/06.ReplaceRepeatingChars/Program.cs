@@ -14,11 +14,6 @@ namespace _06.ReplaceRepeatingChars
                 if (text[i] == text[i + 1])
                 {
                     sequence += text[i];
-
-                    if (i == text.Length - 2)
-                    {
-                        text = text.Replace(sequence, sequence[0].ToString());
-                    }
                 }
                 else
                 {
@@ -27,6 +22,8 @@ namespace _06.ReplaceRepeatingChars
                     sequence = text[i + 1].ToString();
                 }
             }
+
+            text = text.Replace(sequence, sequence[0].ToString());
 
             Console.WriteLine(text);
         }

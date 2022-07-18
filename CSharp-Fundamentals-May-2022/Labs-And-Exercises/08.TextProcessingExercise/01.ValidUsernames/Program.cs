@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace _01.ValidUsernames
 {
@@ -23,17 +24,9 @@ namespace _01.ValidUsernames
 
         static bool CheckIfUsernameIsValid(string username)
         {
-            if (username.Length < 3 || username.Length > 16)
+            if (username.Length < 3 || username.Length > 16 || username.Any(ch => !(char.IsLetterOrDigit(ch) || ch == '-' || ch == '_')))
             {
                 return false;
-            }
-
-            foreach (var character in username)
-            {
-                if (!(Char.IsLetterOrDigit(character) || character == '-' || character == '_'))
-                {
-                    return false;
-                }
             }
 
             return true;
