@@ -36,18 +36,22 @@ namespace _03.PostOffice
             foreach (Match match in secondPartMatches)
             {
                 char letter = (char)int.Parse(match.Groups["asciiCode"].Value);
+
                 if (char.IsLetter(letter))
                 {
-                    if (words[letter].Length == 1)
+                    if (words.ContainsKey(letter))
                     {
-                        words[letter].Length += int.Parse(match.Groups["length"].Value);
+                        if (words[letter].Length == 1)
+                        {
+                            words[letter].Length += int.Parse(match.Groups["length"].Value);
+                        }
                     }
                 }
             }
 
             foreach (var word in thirdPart)
             {
-                if (words.Any(w => w.Key == word[0]))
+                if (words.ContainsKey(word[0]))
                 {
                     if (words[word[0]].Length == word.Length)
                     {
@@ -60,7 +64,6 @@ namespace _03.PostOffice
             {
                 Console.WriteLine(word.Value.Text);
             }
-
         }
     }
 
