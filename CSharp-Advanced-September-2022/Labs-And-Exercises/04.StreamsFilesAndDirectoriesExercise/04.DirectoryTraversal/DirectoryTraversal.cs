@@ -31,7 +31,7 @@
             {
                 string extension = file.Extension;
                 string fileName = file.Name;
-                decimal size = file.Length / 1000;
+                decimal size = file.Length / 1024;
 
                 if (!filesByExtension.ContainsKey(extension))
                 {
