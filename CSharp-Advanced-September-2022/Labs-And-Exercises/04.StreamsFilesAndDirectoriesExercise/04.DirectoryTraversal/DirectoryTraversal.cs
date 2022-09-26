@@ -58,7 +58,8 @@
 
         public static void WriteReportToDesktop(string textContent, string reportFileName)
         {
-            File.WriteAllText(reportFileName, textContent);
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + reportFileName;
+            File.WriteAllText(desktopPath, textContent);
         }
     }
 }
