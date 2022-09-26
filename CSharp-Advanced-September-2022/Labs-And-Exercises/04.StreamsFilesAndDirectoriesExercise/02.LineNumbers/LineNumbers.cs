@@ -21,9 +21,9 @@
             for (int i = 0; i < lines.Length; i++)
             {
                 int lettersCount = lines[i].Count(char.IsLetter);
-                int punctuationMarksCount = lines[i].Count(ch => ch == '.' || ch == ',' || ch == '!' || ch == '?' || ch == ':' || ch == ';' || ch == '-' || ch == '\'' || ch == '\"');
+                int punctuationMarksCount = lines[i].Count(char.IsPunctuation);
 
-                lines[i] = $"Line {i + 1}: -I was quick to judge him, but it wasn't his fault. ({lettersCount})({punctuationMarksCount})";
+                lines[i] = $"Line {i + 1}: {lines[i]} ({lettersCount})({punctuationMarksCount})";
             }
 
             File.WriteAllLines(outputFilePath, lines);
