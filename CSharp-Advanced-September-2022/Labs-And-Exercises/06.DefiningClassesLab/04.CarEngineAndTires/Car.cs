@@ -81,7 +81,7 @@ namespace CarManufacturer
         }
 
         public Car(string make, string model, int year, double fuelQuantity, double fuelConsumption, Engine engine, Tire[] tires)
-             : this(make, model, year, fuelConsumption, fuelConsumption)
+             : this(make, model, year, fuelQuantity, fuelConsumption)
         {
             this.Engine = engine;
             this.Tires = tires;
