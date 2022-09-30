@@ -12,10 +12,10 @@ namespace CarManufacturer
             List<Engine> engines = GetEnginesInfo();
             List<Car> cars = GetCarsInfo(tiresList, engines);
 
-            Func<Car, bool> filterCars = FilterCars();
+            Predicate<Car> filterCars = FilterCars();
 
             List<Car> specialCars = cars
-                .Where(filterCars)
+                .FindAll(filterCars)
                 .ToList();
 
             PrintSpecialCars(specialCars);
@@ -94,16 +94,14 @@ namespace CarManufacturer
                 int engineIndex = int.Parse(carInfo[5]);
                 int tiresIndex = int.Parse(carInfo[6]);
 
-                Car car = new Car(make, model, year, fuelQuantity, fuelConsumption);
-                car.Engine = engines[engineIndex];
-                car.Tires = tiresList[tiresIndex];
+                Car car = new Car(make, model, year, fuelQuantity, fuelConsumption, engines[engineIndex], tiresList[tiresIndex]);
                 cars.Add(car);
             }
 
             return cars;
         }
 
-        static Func<Car, bool> FilterCars() => c => c.Year >= 2017 && c.Engine.HorsePower > 330 && c.Tires.Sum(t => t.Pressure) >= 9 && c.Tires.Sum(t => t.Pressure) <= 10;
+        static Predicate<Car> FilterCars() => c => c.Year >= 2017 && c.Engine.HorsePower > 330 && c.Tires.Sum(t => t.Pressure) >= 9 && c.Tires.Sum(t => t.Pressure) <= 10;
 
         static void PrintSpecialCars(List<Car> specialCars)
         {
