@@ -9,8 +9,7 @@ namespace DefiningClasses
             string firstDate = Console.ReadLine();
             string secondDate = Console.ReadLine();
 
-            DateModifier dateModifier = new DateModifier(firstDate, secondDate);
-            Console.WriteLine(dateModifier.GetDaysDifference());
+            Console.WriteLine(DateModifier.GetDaysDifference(firstDate, secondDate));
         }
     }
 }

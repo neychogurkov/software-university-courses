@@ -4,21 +4,12 @@ using System.Text;
 
 namespace DefiningClasses
 {
-    public class DateModifier
+    public static class DateModifier
     {
-        public DateModifier(string firstDate, string secondDate)
+        public static int GetDaysDifference(string firstDate, string secondDate)
         {
-            this.FirstDate = DateTime.Parse(firstDate);
-            this.SecondDate = DateTime.Parse(secondDate);
-        }
-
-        public DateTime FirstDate { get; set; }
-        public DateTime SecondDate { get; set; }
-
-        public int GetDaysDifference()
-        {
-            string daysDiff = this.FirstDate.Subtract(this.SecondDate).ToString().Split('.')[0];
-            return Math.Abs(int.Parse(daysDiff));
+            int daysDiff = (DateTime.Parse(firstDate) - DateTime.Parse(secondDate)).Days;
+            return Math.Abs(daysDiff);
         }
     }
 }
