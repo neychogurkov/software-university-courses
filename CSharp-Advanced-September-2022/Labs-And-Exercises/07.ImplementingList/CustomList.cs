@@ -3,19 +3,19 @@ using System.Text;
 
 namespace ImplementingList
 {
-    public class CustomList
+    public class CustomList<T>
     {
         private const int InitialCapacity = 2;
-        private int[] items;
+        private T[] items;
 
         public CustomList()
         {
-            this.items = new int[InitialCapacity];
+            this.items = new T[InitialCapacity];
         }
 
         public int Count { get; private set; }
 
-        public int this[int index]
+        public T this[int index]
         {
             get
             {
@@ -39,7 +39,7 @@ namespace ImplementingList
 
         private void Resize()
         {
-            int[] internalArray = new int[this.items.Length * 2];
+            T[] internalArray = new T[this.items.Length * 2];
 
             for (int i = 0; i < this.items.Length; i++)
             {
@@ -51,7 +51,7 @@ namespace ImplementingList
 
         public void Shrink()
         {
-            int[] internalArray = new int[this.items.Length / 2];
+            T[] internalArray = new T[this.items.Length / 2];
 
             for (int i = 0; i < this.items.Length; i++)
             {
@@ -66,7 +66,7 @@ namespace ImplementingList
             for (int i = index; i < this.Count - 1; i++)
             {
                 this.items[i] = this.items[i + 1];
-                this.items[i + 1] = 0;
+                this.items[i + 1] = default(T);
             }
         }
 
@@ -78,7 +78,7 @@ namespace ImplementingList
             }
         }
 
-        public void Add(int element)
+        public void Add(T element)
         {
             if (this.Count == this.items.Length)
             {
@@ -89,7 +89,7 @@ namespace ImplementingList
             this.Count++;
         }
 
-        public void AddRange(int[] range)
+        public void AddRange(T[] range)
         {
             foreach (var item in range)
             {
@@ -97,15 +97,15 @@ namespace ImplementingList
             }
         }
 
-        public int RemoveAt(int index)
+        public T RemoveAt(int index)
         {
             if (index < 0 || index >= this.Count)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            int item = this.items[index];
-            this.items[index] = default(int);
+            T item = this.items[index];
+            this.items[index] = default(T);
             this.ShiftLeft(index);
 
             this.Count--;
@@ -117,13 +117,13 @@ namespace ImplementingList
             return item;
         }
 
-        public void Remove(int element)
+        public void Remove(T element)
         {
             for (int i = 0; i < this.Count; i++)
             {
-                if (this.items[i] == element)
+                if (this.items[i].Equals(element))
                 {
-                    this.items[i] = default(int);
+                    this.items[i] = default(T);
                     this.ShiftLeft(i);
                     this.Count--;
                     return;
@@ -131,13 +131,13 @@ namespace ImplementingList
             }
         }
 
-        public void RemoveAll(Predicate<int> predicate)
+        public void RemoveAll(Predicate<T> predicate)
         {
             for (int i = 0; i < this.Count; i++)
             {
                 if (predicate(this.items[i]))
                 {
-                    this.items[i] = default(int);
+                    this.items[i] = default(T);
                     this.ShiftLeft(i);
                     this.Count--;
                     i--;
@@ -145,7 +145,7 @@ namespace ImplementingList
             }
         }
 
-        public void Insert(int index, int element)
+        public void Insert(int index, T element)
         {
             if (index < 0 || index >= this.Count && this.Count > 0)
             {
@@ -162,11 +162,11 @@ namespace ImplementingList
             this.Count++;
         }
 
-        public bool Contains(int element)
+        public bool Contains(T element)
         {
             for (int i = 0; i < this.Count; i++)
             {
-                if (this.items[i] == element)
+                if (this.items[i].Equals(element))
                 {
                     return true;
                 }
@@ -185,9 +185,9 @@ namespace ImplementingList
             (this.items[firstIndex], this.items[secondIndex]) = (this.items[secondIndex], this.items[firstIndex]);
         }
 
-        public int[] ToArray()
+        public T[] ToArray()
         {
-            int[] array = new int[this.Count];
+            T[] array = new T[this.Count];
 
             for (int i = 0; i < this.Count; i++)
             {
@@ -197,7 +197,7 @@ namespace ImplementingList
             return array;
         }
 
-        public int Find(Predicate<int> predicate)
+        public T Find(Predicate<T> predicate)
         {
             for (int i = 0; i < this.Count; i++)
             {
@@ -207,12 +207,12 @@ namespace ImplementingList
                 }
             }
 
-            return 0;
+            return default(T);
         }
 
-        public CustomList FindAll(Predicate<int> predicate)
+        public CustomList<T> FindAll(Predicate<T> predicate)
         {
-            CustomList list = new CustomList();
+            CustomList<T> list = new CustomList<T>();
 
             for (int i = 0; i < this.Count; i++)
             {
@@ -225,7 +225,7 @@ namespace ImplementingList
             return list;
         }
 
-        public void ForEach(Action<int> action)
+        public void ForEach(Action<T> action)
         {
             for (int i = 0; i < this.Count; i++)
             {
