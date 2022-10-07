@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Linq;
 
 namespace CustomDoublyLinkedList
 {
-    public class DoublyLinkedList
+    public class DoublyLinkedList<T>
     {
-        public ListNode Head { get; set; }
-        public ListNode Tail { get; set; }
+        public ListNode<T> Head { get; set; }
+        public ListNode<T> Tail { get; set; }
         public int Count { get; set; }
 
-        public void AddFirst(int element)
+        public void AddFirst(T element)
         {
             this.Count++;
-            ListNode node = new ListNode(element);
+            ListNode<T> node = new ListNode<T>(element);
 
             if (this.Head == null)
             {
@@ -23,17 +20,17 @@ namespace CustomDoublyLinkedList
             }
             else
             {
-                ListNode oldHead = this.Head;
+                ListNode<T> oldHead = this.Head;
                 this.Head.PreviousNode = node;
                 this.Head = node;
                 this.Head.NextNode = oldHead;
             }
         }
 
-        public void AddLast(int element)
+        public void AddLast(T element)
         {
             this.Count++;
-            ListNode node = new ListNode(element);
+            ListNode<T> node = new ListNode<T>(element);
 
             if (this.Head == null)
             {
@@ -42,21 +39,21 @@ namespace CustomDoublyLinkedList
             }
             else
             {
-                ListNode oldTail = this.Tail;
+                ListNode<T> oldTail = this.Tail;
                 this.Tail.NextNode = node;
                 this.Tail = node;
                 this.Tail.PreviousNode = oldTail;
             }
         }
 
-        public int RemoveFirst()
+        public T RemoveFirst()
         {
             if (this.Head == null)
             {
                 throw new NullReferenceException();
             }
 
-            int first = this.Head.Value;
+            T first = this.Head.Value;
 
             if (this.Head == this.Tail)
             {
@@ -73,14 +70,14 @@ namespace CustomDoublyLinkedList
             return first;
         }
 
-        public int RemoveLast()
+        public T RemoveLast()
         {
             if (this.Tail == null)
             {
                 throw new NullReferenceException();
             }
 
-            int last = this.Tail.Value;
+            T last = this.Tail.Value;
 
             if (this.Tail == this.Head)
             {
@@ -97,9 +94,9 @@ namespace CustomDoublyLinkedList
             return last;
         }
 
-        public void ForEach(Action<int> action)
+        public void ForEach(Action<T> action)
         {
-            ListNode node = this.Head;
+            ListNode<T> node = this.Head;
 
             while (node != null)
             {
@@ -108,11 +105,11 @@ namespace CustomDoublyLinkedList
             }
         }
 
-        public int[] ToArray()
+        public T[] ToArray()
         {
-            int[] array = new int[this.Count];
+            T[] array = new T[this.Count];
 
-            ListNode node = this.Head;
+            ListNode<T> node = this.Head;
             int index = 0;
 
             while (node != null)
