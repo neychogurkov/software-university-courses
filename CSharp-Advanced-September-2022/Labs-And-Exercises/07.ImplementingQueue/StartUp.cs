@@ -6,7 +6,7 @@ namespace ImplementingQueue
     {
         static void Main(string[] args)
         {
-            CustomQueue queue = new CustomQueue();
+            CustomQueue<int> queue = new CustomQueue<int>();
 
             queue.Enqueue(5);
             queue.Enqueue(3);

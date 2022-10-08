@@ -2,21 +2,21 @@
 
 namespace ImplementingStack
 {
-    public class CustomStack
+    public class CustomStack<T>
     {
         private const int InitialCapacity = 4;
-        private int[] items;
+        private T[] items;
 
         public CustomStack()
         {
-            this.items = new int[InitialCapacity];
+            this.items = new T[InitialCapacity];
         }
 
         public int Count { get; private set; }
 
         public void Resize()
         {
-            int[] internalArray = new int[this.items.Length * 2];
+            T[] internalArray = new T[this.items.Length * 2];
 
             for (int i = 0; i < this.items.Length; i++)
             {
@@ -26,7 +26,7 @@ namespace ImplementingStack
             this.items = internalArray;
         }
 
-        public void Push(int element)
+        public void Push(T element)
         {
             if (this.items.Length == this.Count)
             {
@@ -37,21 +37,21 @@ namespace ImplementingStack
             this.Count++;
         }
 
-        public int Pop()
+        public T Pop()
         {
             if (this.Count == 0)
             {
                 throw new InvalidOperationException("The stack is empty!");
             }
 
-            int item = this.items[this.Count - 1];
-            this.items[this.Count - 1] = default(int);
+            T item = this.items[this.Count - 1];
+            this.items[this.Count - 1] = default(T);
             this.Count--;
 
             return item;
         }
 
-        public int Peek()
+        public T Peek()
         {
             if (this.Count == 0)
             {
@@ -61,7 +61,7 @@ namespace ImplementingStack
             return this.items[this.Count - 1];
         }
 
-        public void ForEach(Action<int> action)
+        public void ForEach(Action<T> action)
         {
             for (int i = this.Count - 1; i >= 0; i--)
             {

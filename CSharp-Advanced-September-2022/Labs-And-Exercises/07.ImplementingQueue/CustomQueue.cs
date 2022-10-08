@@ -2,22 +2,22 @@
 
 namespace ImplementingQueue
 {
-    public class CustomQueue
+    public class CustomQueue<T>
     {
         private const int InitialCapacity = 4;
         private const int FirstElementIndex = 0;
-        private int[] items;
+        private T[] items;
 
         public CustomQueue()
         {
-            this.items = new int[InitialCapacity];
+            this.items = new T[InitialCapacity];
         }
 
         public int Count { get; private set; }
 
         public void Resize()
         {
-            int[] internalArray = new int[this.items.Length * 2];
+            T[] internalArray = new T[this.items.Length * 2];
 
             for (int i = 0; i < this.items.Length; i++)
             {
@@ -32,11 +32,11 @@ namespace ImplementingQueue
             for (int i = 0; i < this.Count - 1; i++)
             {
                 this.items[i] = this.items[i + 1];
-                this.items[i + 1] = default(int);
+                this.items[i + 1] = default(T);
             }
         }
 
-        public void Enqueue(int element)
+        public void Enqueue(T element)
         {
             if (this.items.Length == this.Count)
             {
@@ -47,21 +47,21 @@ namespace ImplementingQueue
             this.Count++;
         }
 
-        public int Dequeue()
+        public T Dequeue()
         {
             if (this.Count == 0)
             {
                 throw new InvalidOperationException("The queue is empty!");
             }
 
-            int item = this.items[FirstElementIndex];
+            T item = this.items[FirstElementIndex];
             this.ShiftLeft();
             this.Count--;
 
             return item;
         }
 
-        public int Peek()
+        public T Peek()
         {
             if (this.Count == 0)
             {
@@ -75,13 +75,13 @@ namespace ImplementingQueue
         {
             for (int i = 0; i < this.Count; i++)
             {
-                this.items[i] = default(int);
+                this.items[i] = default(T);
             }
 
             this.Count = 0;
         }
 
-        public void ForEach(Action<int> action)
+        public void ForEach(Action<T> action)
         {
             for (int i = 0; i < this.Count; i++)
             {

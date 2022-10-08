@@ -6,7 +6,7 @@ namespace ImplementingStack
     {
         static void Main(string[] args)
         {
-            CustomStack stack = new CustomStack();
+            CustomStack<int> stack = new CustomStack<int>();
 
             stack.Push(3);
             stack.Push(2);
