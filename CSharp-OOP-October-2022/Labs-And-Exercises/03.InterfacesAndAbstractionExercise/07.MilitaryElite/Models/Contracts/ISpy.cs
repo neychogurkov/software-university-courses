@@ -1,6 +1,6 @@
 ﻿namespace MilitaryElite.Models.Contracts
 {
-    public interface ISpy
+    public interface ISpy : ISoldier
     {
         int CodeNumber { get; }
     }

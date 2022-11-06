@@ -1,8 +1,8 @@
-﻿using MilitaryElite.Models.Enums;
-
-namespace MilitaryElite.Models.Contracts
+﻿namespace MilitaryElite.Models.Contracts
 {
-    public interface ISpecialisedSoldier
+    using Enums;
+
+    public interface ISpecialisedSoldier : IPrivate
     {
         Corps Corps { get; }
     }

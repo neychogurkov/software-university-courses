@@ -111,7 +111,7 @@
 
             foreach (var privateId in privatesIds)
             {
-                privates.Add((IPrivate)soldiers.First(s => s.Id == privateId));
+                privates.Add((IPrivate)soldiers.FirstOrDefault(s => s.Id == privateId));
             }
 
             return privates;
