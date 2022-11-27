@@ -16,7 +16,7 @@
         }
 
         [Test]
-        public void Test_ConstructorShouldInitializeAListOfWarriors()
+        public void Test_ConstructorShouldInitializeWarriorsCollection()
         {
             Assert.IsNotNull(arena.Warriors);
         }
@@ -32,7 +32,7 @@
                 arena.Enroll(warrior);
             }
 
-            Assert.AreEqual(warriorsCount, arena.Warriors.Count);
+            Assert.AreEqual(warriorsCount, arena.Count);
         }
 
         [Test]

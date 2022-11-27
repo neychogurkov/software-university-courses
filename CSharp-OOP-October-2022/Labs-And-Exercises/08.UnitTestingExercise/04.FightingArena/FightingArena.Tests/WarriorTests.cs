@@ -18,7 +18,7 @@ namespace FightingArena.Tests
         }
 
         [Test]
-        public void Test_ConstructorShouldSetCorrectValues()
+        public void Test_ConstructorShoudInitializeWarriorWithCorrrectData()
         {
             Assert.AreEqual(DEFAULT_NAME, warrior.Name);
             Assert.AreEqual(DEFAULT_DAMAGE, warrior.Damage);
@@ -101,7 +101,7 @@ namespace FightingArena.Tests
         }
 
         [Test]
-        public void Test_DefenderHPShouldBecomeZeroIfHisHPIsLessThanAttackerDamage()
+        public void Test_DefenderHPShouldBecomeZeroIfHeGetsKilled()
         {
             Warrior defender = new Warrior("John", 10, 35);
             int expectedHP = 0;

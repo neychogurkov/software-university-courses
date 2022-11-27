@@ -20,7 +20,7 @@ namespace CarManager.Tests
         }
 
         [Test]
-        public void Test_ConstructorsShouldSetCorrectValues()
+        public void Test_ConstructorShoudInitializeCarWithCorrrectData()
         {
             Assert.AreEqual(DEFAULT_MAKE, car.Make);
             Assert.AreEqual(DEFAULT_MODEL, car.Model);
