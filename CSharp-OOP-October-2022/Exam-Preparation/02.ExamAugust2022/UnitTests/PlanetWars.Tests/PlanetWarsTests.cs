@@ -59,23 +59,16 @@ namespace PlanetWars.Tests
                 Assert.AreEqual(15, weapon.DestructionLevel);
             }
 
+            [TestCase(6)]
             [TestCase(10)]
             [TestCase(15)]
             public void IsNuclearShouldReturnTrueIfDestructionLevelIsMoreThanOrEqualTo10(int destructionLevel)
             {
+                bool expected = destructionLevel >= 10;
+
                 Weapon weapon = new Weapon("Excalibur", 100, destructionLevel);
 
-                Assert.AreEqual(true, weapon.IsNuclear);
-            }
-
-            [TestCase(0)]
-            [TestCase(9)]
-            [TestCase(-5)]
-            public void IsNuclearShouldReturnFalseIfDestructionLevelIsLessThan10(int destructionLevel)
-            {
-                Weapon weapon = new Weapon("Excalibur", 100, destructionLevel);
-
-                Assert.AreEqual(false, weapon.IsNuclear);
+                Assert.AreEqual(expected, weapon.IsNuclear);
             }
 
             [Test]
@@ -187,13 +180,19 @@ namespace PlanetWars.Tests
             [Test]
             public void RemoveWeaponShouldRemoveTheWeaponFromTheCollection()
             {
+                List<Weapon> weapons = new List<Weapon>();
+               
                 for (int i = 1; i <= 5; i++)
                 {
                     Weapon weapon = new Weapon($"Weapon{i}", i * 5, i * 2 - 1);
+                    weapons.Add(weapon);
                     planet.AddWeapon(weapon);
                 }
 
-                planet.RemoveWeapon("Weapon");
+                planet.RemoveWeapon("Weapon2");
+                weapons.RemoveAt(1);
+
+                CollectionAssert.AreEqual(weapons, planet.Weapons);
             }
 
             [Test]
