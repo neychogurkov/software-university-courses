@@ -20,7 +20,9 @@ namespace SoftUni
             //string result = GetDepartmentsWithMoreThan5Employees(context);
             //string result = GetLatestProjects(context);
             //string result = IncreaseSalaries(context);
-            string result = GetEmployeesByFirstNameStartingWithSa(context);
+            //string result = GetEmployeesByFirstNameStartingWithSa(context);
+            //string result = DeleteProjectById(context);
+            string result = RemoveTown(context);
 
             Console.WriteLine(result);
         }
@@ -329,6 +331,52 @@ namespace SoftUni
             }
 
             return sb.ToString().TrimEnd();
+        }
+
+        public static string DeleteProjectById(SoftUniContext context)
+        {
+            var projectToRemove = context.Projects.Find(2);
+
+            var employeesProjectsToRemove = context.EmployeesProjects
+                .Where(ep => ep.ProjectId == 2)
+                .ToArray();
+
+            context.EmployeesProjects.RemoveRange(employeesProjectsToRemove);
+            context.Projects.Remove(projectToRemove!);
+            context.SaveChanges();
+
+            var projects = context.Projects
+                .Take(10)
+                .Select(p => p.Name)
+                .ToArray();
+
+            return string.Join(Environment.NewLine, projects);
+        }
+
+        public static string RemoveTown(SoftUniContext context)
+        {
+            Town town = context.Towns
+                .FirstOrDefault(t => t.Name == "Seattle");
+
+            var addresses = context.Addresses
+                .Where(a => a.TownId == town.TownId)
+                .ToArray();
+            var employees = context.Employees
+                .Where(e => addresses
+                    .Contains(e.Address))
+                .ToArray();
+
+            foreach (var employee in employees)
+            {
+                employee.AddressId = null;
+            }
+
+            int removedAddresses = addresses.Length;
+            context.Addresses.RemoveRange(addresses);
+            context.Towns.Remove(town);
+            context.SaveChanges();
+
+            return $"{removedAddresses} addresses in Seattle were deleted";
         }
     }
 }
