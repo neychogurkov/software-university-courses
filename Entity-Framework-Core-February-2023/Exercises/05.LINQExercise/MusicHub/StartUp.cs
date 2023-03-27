@@ -1,6 +1,7 @@
 ﻿namespace MusicHub
 {
     using System;
+    using System.Globalization;
     using System.Text;
 
     using Data;
@@ -15,8 +16,8 @@
 
             DbInitializer.ResetDatabase(context);
 
-            //string result = ExportAlbumsInfo(context, 9);
-            string result = ExportSongsAboveDuration(context, 4);
+            string result = ExportAlbumsInfo(context, 4);
+            //string result = ExportSongsAboveDuration(context, 4);
 
             Console.WriteLine(result);
         }
@@ -24,15 +25,14 @@
         public static string ExportAlbumsInfo(MusicHubDbContext context, int producerId)
         {
             var albums = context.Albums
-                .Where(a => a.ProducerId == producerId)
-                .ToArray()
-                .OrderByDescending(a => a.Price)
+                .Where(a => a.ProducerId.HasValue && 
+                            a.ProducerId.Value == producerId)
                 .Select(a => new
                 {
                     AlbumName = a.Name,
-                    ReleaseDate = a.ReleaseDate.ToString("MM/dd/yyyy"),
+                    ReleaseDate = a.ReleaseDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture),
                     ProducerName = a.Producer!.Name,
-                    TotalPrice = a.Price.ToString("F2"),
+                    TotalPrice = a.Price,
                     Songs = a.Songs
                         .Select(s => new
                         {
@@ -44,6 +44,8 @@
                         .ThenBy(s => s.WriterName)
                         .ToArray(),
                 })
+                .AsEnumerable()
+                .OrderByDescending(a => a.TotalPrice)
                 .ToArray();
 
             StringBuilder sb = new StringBuilder();
@@ -67,7 +69,7 @@
                     songCounter++;
                 }
 
-                sb.AppendLine($"-AlbumPrice: {album.TotalPrice}");
+                sb.AppendLine($"-AlbumPrice: {album.TotalPrice:f2}");
             }
 
             return sb.ToString().TrimEnd();
@@ -76,7 +78,7 @@
         public static string ExportSongsAboveDuration(MusicHubDbContext context, int duration)
         {
             var songs = context.Songs
-                .ToArray()
+                .AsEnumerable()
                 .Where(s => s.Duration.TotalSeconds > duration)
                 .Select(s => new
                 {
